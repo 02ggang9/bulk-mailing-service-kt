@@ -1,0 +1,30 @@
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username:
+    password:
+    properties:
+      mail.smtp.starttls.enable: true
+      mail.smtp.auth: true
+    protocol: smtp
+  datasource:
+    url: jdbc:mysql://localhost:3306/springBatch?serverTimezone=Asia/Seoul&characterEncoding=UTF-8 # fix {}는 입력하고 제거할 것.
+    username: user # fix
+    password: 1234 # fix
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      enabled: false
+      name: ${job.name:NONE}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
