@@ -1,0 +1,1 @@
+# bulk-mailing-service-kt
