@@ -27,7 +27,7 @@ class MemberService(
     @Transactional
     fun saveMember(nickName: String, email: String): Long {
         memberRepository.findByEmail(email)
-            ?: throw IllegalArgumentException("동일한 이메일이 존재합니다.")
+            ?.let { throw IllegalArgumentException("$it 동일한 이메일이 존재합니다.") }
 
         return memberRepository.save(
             Member(
