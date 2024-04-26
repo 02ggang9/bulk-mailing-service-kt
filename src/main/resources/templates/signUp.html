@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register - YouTube Inspired</title>
+    <link href="/css/youtube-register.css" rel="stylesheet">
+</head>
+<body>
+<div class="register-container">
+    <div class="register-form">
+        <img src="https://www.logo.wine/a/logo/YouTube/YouTube-Logo.wine.svg" alt="YouTube Logo" class="logo">
+        <h2>Create your Account</h2>
+        <form th:action="@{/member/sign-up}" method="post">
+            <div class="input-container">
+                <input type="text" placeholder="name" name="name" required>
+            </div>
+            <div class="input-container">
+                <input type="text" placeholder="memberId" name="memberId" required>
+            </div>
+            <div class="input-container">
+                <input type="password" placeholder="Password" name="password" required>
+            </div>
+            <div class="input-container">
+                <input type="email" placeholder="Email" name="email" required>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="register-button">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var form = document.querySelector("form");
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+            var formData = {
+                name: form.querySelector("input[name='name']").value,
+                memberId: form.querySelector("input[name='memberId']").value,
+                password: form.querySelector("input[name='password']").value,
+                email: form.querySelector("input[name='email']").value
+            };
+            sendFormDataAsJson(formData);
+        });
+    });
+
+    function sendFormDataAsJson(formData) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/member/sign-up", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                // Handle response here
+            }
+        };
+        xhr.send(JSON.stringify(formData));
+    }
+</script>
+</body>
+</html>

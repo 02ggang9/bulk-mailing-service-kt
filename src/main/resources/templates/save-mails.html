@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Email List</title>
+  <link href="/css/save-mails.css" rel="stylesheet">
+  <style>
+    .mail-container {
+      font-family: Arial, sans-serif;
+      color: #333; /* Dark grey text */
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd; /* Light grey border */
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2; /* Light grey header background */
+      color: black;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9; /* Zebra striping for rows */
+    }
+    tr:hover {
+      background-color: #ddd; /* Hover effect for rows */
+    }
+    .title {
+      color: #333; /* Dark grey title */
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+<div class="mail-container">
+  <h1 class="title">Mail List</h1> <!-- Title for the table -->
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="mail : ${mails}">
+      <td th:text="${mail.id}">1</td> <!-- Display mail ID -->
+      <td>
+        <a th:href="@{'/news-mail/preview/' + ${mail.id}}" th:text="${mail.title}">Email Title</a>
+      </td> <!-- Display mail title and link -->
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

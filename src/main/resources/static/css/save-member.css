@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.member-form-container {
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 8px;
+    width: 80%; /* Added a width to limit the container's width */
+    max-width: 400px; /* Maximum width to prevent it from becoming too wide */
+    box-sizing: border-box; /* Add this to include padding and borders in the width */
+}
+
+input[type="text"], input[type="email"] {
+    width: 100%;
+    padding: 10px; /* Adjusted padding */
+    margin-bottom: 10px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box; /* Include padding and borders in the width */
+}
+
+button {
+    width: 100%;
+    padding: 10px; /* Adjusted padding */
+    border: none;
+    border-radius: 4px;
+    background-color: #333;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}

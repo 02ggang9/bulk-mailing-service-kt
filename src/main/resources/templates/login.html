@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - YouTube</title>
+    <link href="/css/youtube-login.css" rel="stylesheet">
+</head>
+<body>
+<div class="login-container">
+    <div class="login-form">
+        <h2>Sign in</h2>
+        <form th:action="@{/sign-in}" method="post">
+            <div class="input-container">
+                <input type="text" placeholder="Email or phone" name="memberId" required>
+            </div>
+            <div class="input-container">
+                <input type="password" placeholder="Enter your password" name="password" required>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="sign-in-button">Sign in</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var form = document.querySelector("form");
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+            var formData = {
+                memberId: form.querySelector("input[name='memberId']").value,
+                password: form.querySelector("input[name='password']").value,
+            };
+            sendFormDataAsJson(formData);
+        });
+    });
+
+    function sendFormDataAsJson(formData) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/sign-in", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                // Handle response here
+            }
+        };
+        xhr.send(JSON.stringify(formData));
+    }
+</script>
+</body>
+</html>

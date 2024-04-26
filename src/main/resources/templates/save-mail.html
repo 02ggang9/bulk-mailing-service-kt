@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Save Mail</title>
+    <link href="/css/save-mail.css" rel="stylesheet">
+</head>
+<body>
+<div class="main-container"> <!-- Updated class here -->
+    <h1 class="title">Save Mail</h1>
+    <form id="dataForm" class="button-container"> <!-- Updated class here -->
+        <input type="text" id="title" placeholder="Enter Title" required>
+        <textarea id="text" placeholder="Enter Text" required></textarea>
+        <button type="submit" class="main-button">Save</button> <!-- Updated class here -->
+    </form>
+</div>
+
+<script th:src="@{/js/sendData.js}"></script>
+</body>
+</html>

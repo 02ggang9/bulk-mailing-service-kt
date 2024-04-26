@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Update Mail</title>
+  <link href="/css/save-mail.css" rel="stylesheet">
+</head>
+<body>
+<div class="main-container">
+  <h1 class="title">Update Mail</h1>
+  <form id="dataForm" class="button-container">
+    <input type="text" id="title" placeholder="Enter Title" th:value="${title}" required>
+    <textarea id="text" placeholder="Enter Text" th:text="${message}" required></textarea>
+    <button type="submit" class="main-button">Save</button>
+  </form>
+</div>
+
+<script th:src="@{/js/sendUpdateData.js}"></script>
+</body>
+</html>

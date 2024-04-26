@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mail Preview</title>
+    <link href="/css/save-mail.css" rel="stylesheet">
+    <style>
+        .main-container {
+            text-align: center;
+            width: 95%;
+            max-width: 800px;
+            padding: 20px;
+            border: 2px solid #333;
+            border-radius: 8px;
+            background-color: #fff;
+            box-sizing: border-box;
+            margin: 10px;
+        }
+
+        .main-button {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            background-color: #333;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            margin-bottom: 10px; /* Add margin to create spacing */
+        }
+
+        .main-button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+<div class="main-container">
+    <h1 class="title">Mail Preview</h1>
+    <!-- Form and JavaScript removed -->
+    <div th:utext="${message}"></div>
+    <button class="main-button" onclick="redirectToEdit()">Edit</button>
+    <button class="main-button" onclick="deleteMail()">Delete</button>
+    <button class="main-button" onclick="sendMail()">Send</button>
+</div>
+
+<script>
+    function redirectToEdit() {
+        // Extract mailId from the current URL
+        var currentURL = window.location.href;
+        var mailId = currentURL.substring(currentURL.lastIndexOf('/') + 1);
+
+        // Redirect to /news-mail/{mailId}
+        window.location.href = '/news-mail/' + mailId;
+    }
+
+    function deleteMail() {
+        // Extract mailId from the current URL
+        var currentURL = window.location.href;
+        var mailId = currentURL.substring(currentURL.lastIndexOf('/') + 1);
+
+        // Send a DELETE request to /news-mail/{mailId}
+        fetch('/news-mail/' + mailId, {
+            method: 'DELETE',
+        })
+            .then(response => {
+                if (response.status === 204) {
+                    // Handle successful deletion, if needed
+                    console.log('Mail deleted successfully.');
+
+                    // Redirect to /news-mails after successful deletion
+                    window.location.href = '/news-mails';
+                } else {
+                    console.error('Error: Unexpected response status:', response.status);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
+    function sendMail() {
+        var currentURL = window.location.href;
+        var mailId = currentURL.substring(currentURL.lastIndexOf('/') + 1);
+
+        fetch('/bulk-mail/' + mailId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                message: "${message}"
+            }),
+        })
+            .then(response => {
+                if (response.status === 201) {
+                    // Handle successful sending, if needed
+                    console.log('Mail sent successfully.');
+                } else {
+                    console.error('Error: Unexpected response status:', response.status);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+</script>
+</body>
+</html>
