@@ -10,13 +10,20 @@ import jakarta.persistence.Id
 class Mail(
 
     @Column(name = "title", nullable = false)
-    val title: String,
+    var title: String,
 
     @Column(name = "message", nullable = false)
-    val message: String,
+    var message: String,
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
-)
+) {
+
+    fun update(title: String, message: String) {
+        this.title = title
+        this.message = message
+    }
+
+}
