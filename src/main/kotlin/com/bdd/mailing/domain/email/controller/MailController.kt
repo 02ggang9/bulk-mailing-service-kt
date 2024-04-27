@@ -1,5 +1,6 @@
 package com.bdd.mailing.domain.email.controller
 
+import com.bdd.mailing.domain.email.application.GmailService
 import com.bdd.mailing.domain.email.application.MailService
 import com.bdd.mailing.domain.email.dto.request.SaveMailRequest
 import com.bdd.mailing.domain.member.dto.request.SaveMemberRequest
@@ -17,11 +18,13 @@ import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
+import kotlin.time.measureTime
 
 @Validated
 @Controller
 class MailController(
-    val mailService: MailService,
+    private val mailService: MailService,
+    private val gmailService: GmailService,
 ) {
 
     @GetMapping("/news-mail")
@@ -80,7 +83,12 @@ class MailController(
 
     @PostMapping("/bulk-mail/{mailId}")
     fun sendBulkMail(@PathVariable(name = "mailId") mailId: Long): ResponseEntity<Void> {
-        // fix
+        // test
+        val measureTime = measureTime {
+            mailService.sendBulkMail(mailId)
+        }
+        println(measureTime)
         return ResponseEntity.status(HttpStatus.OK).build()
+
     }
 }

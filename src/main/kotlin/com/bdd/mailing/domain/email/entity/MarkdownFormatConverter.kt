@@ -6,13 +6,12 @@ import java.util.regex.Pattern
 @Component
 class MarkdownFormatConverter: MailFormatConverter {
 
-
     private val TITLE_PATTERN: Pattern = Pattern.compile("### (.+?)<br>")
     private val IMG_PATTERN: Pattern = Pattern.compile("!\\[.*?\\]\\((.*?)\\)")
 
     override fun convert(message: String): String {
-        message.replace("\n", "<br>")
-        val titleMatcher = TITLE_PATTERN.matcher(message)
+        val newMessage = message.replace("\n", "<br>")
+        val titleMatcher = TITLE_PATTERN.matcher(newMessage)
         var sb = StringBuffer()
 
         while (titleMatcher.find()) {

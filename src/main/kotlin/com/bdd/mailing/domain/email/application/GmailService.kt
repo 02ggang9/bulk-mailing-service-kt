@@ -24,4 +24,17 @@ class GmailService(
         javaMailSender.send(message)
     }
 
+    fun sendEmail(to: Array<String>, subject: String, text: String) {
+        val message = javaMailSender.createMimeMessage()
+        val helper = MimeMessageHelper(message, true)
+
+        val convertedMessage = markdownFormatConverter.convert(text)
+
+        helper.setTo(to)
+        helper.setSubject(subject)
+        helper.setText(convertedMessage, true)
+
+        javaMailSender.send(message)
+    }
+
 }
