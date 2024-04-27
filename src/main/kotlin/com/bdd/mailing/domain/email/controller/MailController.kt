@@ -45,7 +45,8 @@ class MailController(
 
     @GetMapping("/news-mail/preview/{mailId}")
     fun savedMailForm(@PathVariable(name = "mailId") mailId: Long, model: Model): String {
-        // update
+        val savedForm = mailService.convertSaveMailMessage(mailId)
+        model.addAttribute("message", savedForm)
         return "convert-mail"
     }
 
