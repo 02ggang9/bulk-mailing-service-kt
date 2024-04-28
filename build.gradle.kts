@@ -32,6 +32,11 @@ dependencies {
 	runtimeOnly("com.mysql:mysql-connector-j")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.batch:spring-batch-test")
+	testImplementation("com.icegreen:greenmail-junit5:1.6.0")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
+	testImplementation("org.awaitility:awaitility-kotlin:4.2.1")
+
 }
 
 tasks.withType<KotlinCompile> {

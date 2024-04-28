@@ -3,9 +3,10 @@ package com.bdd.mailing.domain.email.application
 import com.bdd.mailing.domain.email.entity.MarkdownFormatConverter
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.mail.javamail.MimeMessageHelper
+import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
 
-@Service
+@Component
 class GmailService(
     private val javaMailSender: JavaMailSender,
     private val markdownFormatConverter: MarkdownFormatConverter,
