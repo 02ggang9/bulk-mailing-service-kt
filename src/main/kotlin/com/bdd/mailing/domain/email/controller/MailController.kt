@@ -83,11 +83,7 @@ class MailController(
 
     @PostMapping("/bulk-mail/{mailId}")
     fun sendBulkMail(@PathVariable(name = "mailId") mailId: Long): ResponseEntity<Void> {
-        // test
-        val measureTime = measureTime {
-            mailService.sendBulkMail(mailId)
-        }
-        println(measureTime)
+        mailService.sendBulkMail(mailId)
         return ResponseEntity.status(HttpStatus.OK).build()
 
     }

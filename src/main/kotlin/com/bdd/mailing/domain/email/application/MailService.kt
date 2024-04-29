@@ -5,6 +5,10 @@ import com.bdd.mailing.domain.email.entity.Mail
 import com.bdd.mailing.domain.email.entity.MailRepository
 import com.bdd.mailing.domain.email.entity.MarkdownFormatConverter
 import com.bdd.mailing.domain.member.application.MemberService
+import org.springframework.batch.core.Job
+import org.springframework.batch.core.JobParametersBuilder
+import org.springframework.batch.core.launch.JobLauncher
+import org.springframework.context.ApplicationContext
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -16,6 +20,8 @@ class MailService(
     private val memberService: MemberService,
     private val gmailService: GmailService,
     private val markdownFormatConverter: MarkdownFormatConverter,
+    private val jobLauncher: JobLauncher,
+    private val applicationContext: ApplicationContext,
 ) {
 
     @Transactional
@@ -59,12 +65,22 @@ class MailService(
 
     @Transactional
     fun sendBulkMail(mailId: Long) {
-        val findMembers = memberService.findMembers()
-            .map { it.email }
-            .toTypedArray()
+        val findMail = (mailRepository.findByIdOrNull(mailId)
+            ?: throw IllegalArgumentException("$mailId 에 해당하는 메일을 찾을 수 없습니다."))
 
-//        findMembers.forEach { member -> gmailService.sendEmail(member, "test", "test") }
-        gmailService.sendEmail(findMembers, "Test", "test")
+        startBulkMailJob(findMail.id!!, findMail.title, findMail.message)
+    }
+
+    private fun startBulkMailJob(mailId: Long, title: String, message: String) {
+        val findJob = applicationContext.getBean("mailJob", Job::class.java)
+
+        val jobParameter = JobParametersBuilder()
+            .addLong("mailId", mailId)
+            .addString("mailSubject", title)
+            .addString("mailMessage", message)
+            .toJobParameters()
+
+        this.jobLauncher.run(findJob, jobParameter)
     }
 
 }
