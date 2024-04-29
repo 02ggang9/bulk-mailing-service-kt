@@ -10,7 +10,7 @@ import jakarta.persistence.Id
 class Member(
 
     @Column(name = "name", nullable = false)
-    val name: String,
+    val name: Long,
 
     @Column(name = "email", nullable = false)
     val email: String,
