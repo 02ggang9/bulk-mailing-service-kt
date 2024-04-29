@@ -11,6 +11,7 @@ import org.springframework.batch.core.launch.JobLauncher
 import org.springframework.context.ApplicationContext
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 
 @Service
@@ -63,7 +64,7 @@ class MailService(
         return markdownFormatConverter.convert(findMail.message)
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
     fun sendBulkMail(mailId: Long) {
         val findMail = (mailRepository.findByIdOrNull(mailId)
             ?: throw IllegalArgumentException("$mailId 에 해당하는 메일을 찾을 수 없습니다."))

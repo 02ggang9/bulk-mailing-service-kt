@@ -47,7 +47,7 @@ class MailJobConfiguration(
             .name("JdbcCursorItemReader")
             .fetchSize(20)
             .sql("SELECT id, name, email FROM member")
-            .rowMapper { rs, rowNum -> Member(rs.getLong(1), rs.getString(2), rs.getLong(3)) }
+            .rowMapper { rs, _ -> Member(rs.getString(2), rs.getString(3), rs.getLong(1)) }
             .dataSource(dataSource)
             .build()
     }
