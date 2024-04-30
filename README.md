@@ -13,7 +13,7 @@ git clone https://github.com/02ggang9/bulk-mailing-service-kt.git
 
 ### 2. docker-compose 실행
 
-mailing > docker > build > docker-compose.yml 실행
+mailing > docker > docker-compose.yml 실행
 
 ### 3. application.yml 파일 추가
 
@@ -124,6 +124,3 @@ ItemProcessor를 동기화에서 비동기적으로 처리하도록 수정 (데�
 1. Kotlin 언어로 전환
 2. 비동기 코드를 동기 코드로 수정 (버그 발생 수정)
 3. Quick Start Guide 간소화
-
-
-

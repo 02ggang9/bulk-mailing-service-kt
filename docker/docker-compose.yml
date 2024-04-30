@@ -1,0 +1,12 @@
+version: "3"
+services:
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234 # 사용자에 맞게 MYSQL ROOT 비밀번호 수정
+      MYSQL_DATABASE: springBatch # 사용자에 맞게 이름 수정
+      MYSQL_USER: user # 사용자에 맞게 이름 변경
+      MYSQL_PASSWORD: 1234 # 사용자에 맞게 비밀번호 변경
+      TZ: Asia/Seoul
